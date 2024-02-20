@@ -1,5 +1,6 @@
 /* Packages */
 @import "npm:normalize.css";
+@import "npm:material-icons/iconfont/material-icons.css";
 
 /* Project */
 @import "variables.css";

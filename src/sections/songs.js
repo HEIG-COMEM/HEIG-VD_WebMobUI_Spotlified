@@ -1,4 +1,4 @@
-import {loadSongs} from '../api.js'
+import { loadSongs } from '../api.js'
 const listSectionTitle = document.querySelector('#list-section h4')
 
 const displayArtistSongs = (id) => {
@@ -13,8 +13,9 @@ const displayArtistSongs = (id) => {
     songs.forEach((song) => {
       const newElement = document.createElement('song-item')
       newElement.setAttribute('title', song.title)
+      newElement.setAttribute('song', JSON.stringify(song))
       songList.appendChild(newElement)
     })
   })
 }
-export {displayArtistSongs}
+export { displayArtistSongs }

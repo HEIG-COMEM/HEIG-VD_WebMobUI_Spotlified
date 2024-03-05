@@ -1,6 +1,5 @@
-import { displaySection, activateLink } from '../helpers.js';
-import { playSong } from '../sections/player.js';
-import { addToQueue, addToTopQueue } from '../lib/queue.js';
+const playClick = new CustomEvent('play_click');
+const favoriteClick = new CustomEvent('favorite_click');
 
 class SongItem extends HTMLElement {
   connectedCallback() {
@@ -19,15 +18,12 @@ class SongItem extends HTMLElement {
 
     this.querySelector(".play-button").addEventListener('click', (e) => {
       e.preventDefault();
-      addToTopQueue(this.song);
-      playSong(this.song);
-      displaySection('player');
-      activateLink('#player');
+      this.dispatchEvent(playClick);
     });
 
     this.querySelector(".favorite-button").addEventListener('click', (e) => {
       e.preventDefault();
-      addToQueue(this.song);
+      this.dispatchEvent(favoriteClick);
     });
   }
 }

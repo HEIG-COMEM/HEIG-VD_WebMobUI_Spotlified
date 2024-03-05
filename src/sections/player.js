@@ -1,3 +1,8 @@
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css';
+
+const notyf = new Notyf();
+
 import formatTimestamp from "../lib/formatTimestamp";
 import * as queue from "../lib/queue";
 
@@ -5,7 +10,7 @@ const audio = document.querySelector('audio');
 const durationSlider = document.querySelector('#player-progress-bar')
 
 const playSong = (song) => {
-    if (!song) return console.error('No song provided')
+    if (!song) return //notyf.error('No song provided')
     audio.src = song.audio_url
 
     // Update UI
@@ -18,6 +23,7 @@ const playSong = (song) => {
     document.querySelector("#player-time-current").innerHTML = formatTimestamp(0)
 
     audio.play()
+    notyf.success(`Now playing: ${song.title}`)
     document.querySelector('#player-control-play span').innerHTML = 'pause'
 }
 

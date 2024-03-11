@@ -9,4 +9,6 @@ const loadArtists = () => loadJson(`${BASE_URL}/api/artists`)
 
 const loadSongs = (id) => loadJson(`${BASE_URL}/api/artists/${id}/songs`)
 
-export {loadArtists, loadSongs}
+const searchSongs = (query) => loadJson(`${BASE_URL}/api/songs/search/${encodeURIComponent(query)}`)
+
+export { loadArtists, loadSongs, searchSongs }

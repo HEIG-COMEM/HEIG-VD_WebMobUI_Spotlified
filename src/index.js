@@ -5,35 +5,47 @@ import './elements/song-item.js'
 import { displaySection, activateLink } from './helpers.js'
 
 import { displayArtists } from './sections/artists.js'
-import { displayArtistSongs } from './sections/songs.js'
+import { displayArtistSongs, displaySearchSongs } from './sections/songs.js'
+
+document.querySelector('#search-trigger').addEventListener('click', () => document.querySelector('#search-input').classList.toggle('active'));
+
+document.querySelector('#search-input').addEventListener('input', (event) => {
+    window.location.hash = `#search-${event.target.value}`;
+});
 
 const routeur = () => {
-  const hash = window.location.hash || '#home'
-  const hashs = hash.split('-')
+    const hash = window.location.hash || '#home'
+    const hashs = hash.split('-')
 
-  // Colorie le lien
-  activateLink(hashs[0])
+    // Colorie le lien
+    activateLink(hashs[0])
 
-  switch (hashs[0]) {
-    case '#artists':
-      if (hashs[1]) {
-        displaySection('list')
-        displayArtistSongs(hashs[1])
-      }
-      else {
-        displaySection('artists')
-        displayArtists()
-      }
-      break;
+    switch (hashs[0]) {
+        case '#search':
+            if (!hashs[1]) return displaySection('home')
+            displaySection('list')
+            displaySearchSongs(hashs[1]);
+            break;
 
-    case '#player':
-      displaySection('player')
-      break;
+        case '#artists':
+            if (hashs[1]) {
+                displaySection('list')
+                displayArtistSongs(hashs[1])
+            }
+            else {
+                displaySection('artists')
+                displayArtists()
+            }
+            break;
 
-    case '#home':
-      displaySection('home')
-      break;
-  }
+        case '#player':
+            displaySection('player')
+            break;
+
+        case '#home':
+            displaySection('home')
+            break;
+    }
 }
 
 // On veut être averti des changements

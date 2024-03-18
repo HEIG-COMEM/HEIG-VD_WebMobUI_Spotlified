@@ -1,7 +1,7 @@
 import { loadSongs, searchSongs } from '../api.js';
 import { playSong } from '../sections/player.js';
 import { addToQueue } from '../lib/queue.js';
-import { toggleFavourite } from '../lib/favourites.js';
+import { isFavorite, toggleFavourite } from '../lib/favourites.js';
 
 const listSectionTitle = document.querySelector('#list-section h4')
 
@@ -13,6 +13,7 @@ const buildSongsItems = (songs) => {
     songs.forEach((song) => {
         const newElement = document.createElement('song-item')
         newElement.setAttribute('title', song.title)
+        newElement.setAttribute('favourite', isFavorite(song))
 
         newElement.addEventListener('play_click', () => {
             addToQueue(song, songs);
@@ -21,6 +22,7 @@ const buildSongsItems = (songs) => {
 
         newElement.addEventListener('favorite_click', () => {
             toggleFavourite(song);
+            newElement.setAttribute('favourite', isFavorite(song));
         });
 
         songList.appendChild(newElement)
@@ -41,4 +43,10 @@ const displaySearchSongs = (query) => {
     })
 }
 
-export { displayArtistSongs, displaySearchSongs }
+const displayFavourite = () => {
+    const favourite = JSON.parse(localStorage.getItem('favourite')) || [];
+    listSectionTitle.innerHTML = `Favoris`;
+    buildSongsItems(favourite);
+}
+
+export { displayArtistSongs, displaySearchSongs, displayFavourite }

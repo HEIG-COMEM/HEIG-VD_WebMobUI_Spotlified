@@ -17,4 +17,9 @@ const toggleFavourite = (selectedSong) => {
     }
 }
 
-export { toggleFavourite }
+const isFavorite = (song) => {
+    const favourite = JSON.parse(localStorage.getItem('favourite')) || [];
+    return favourite.some((favouriteSong) => favouriteSong.id === song.id);
+}
+
+export { toggleFavourite, isFavorite }

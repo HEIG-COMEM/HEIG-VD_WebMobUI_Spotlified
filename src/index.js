@@ -61,6 +61,6 @@ routeur()
 
 
 // Service Worker
-// navigator.serviceWorker.register(
-//     new URL('workerCacheFetched.js', import.meta.url)
-// );
+navigator.serviceWorker.register(
+    new URL('workerCacheFetched.js', import.meta.url)
+);

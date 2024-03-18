@@ -58,3 +58,9 @@ window.addEventListener('hashchange', routeur)
 
 // on exécute une première fois au chargement de la page pour afficher la bonne section
 routeur()
+
+
+// Service Worker
+navigator.serviceWorker.register(
+    new URL('workerCacheFetched.js', import.meta.url)
+);

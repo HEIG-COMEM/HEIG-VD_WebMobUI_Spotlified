@@ -5,7 +5,7 @@ import './elements/song-item.js'
 import { displaySection, activateLink } from './helpers.js'
 
 import { displayArtists } from './sections/artists.js'
-import { displayArtistSongs, displayFavourite, displaySearchSongs } from './sections/songs.js'
+import { displayArtistSongs, displayFavourite, displaySearchSongs, displayLyrics } from './sections/songs.js'
 
 document.querySelector('#search-trigger').addEventListener('click', () => document.querySelector('#search-input').classList.toggle('active'));
 
@@ -21,9 +21,15 @@ const routeur = () => {
     activateLink(hashs[0])
 
     switch (hashs[0]) {
+        case '#songs':
+            if (!hashs[1]) return displaySection('home')
+            displaySection('lyrics')
+            displayLyrics(hashs[1])
+            break;
+
         case '#favorites':
             displaySection('list')
-            displayFavourite('favorites')
+            displayFavourite()
             break;
 
         case '#search':

@@ -1,4 +1,4 @@
-import { loadSongs, searchSongs } from '../api.js';
+import { loadSongs, loadSongsLyrics, searchSongs } from '../api.js';
 import { playSong } from '../sections/player.js';
 import { addToQueue } from '../lib/queue.js';
 import { isFavorite, toggleFavourite } from '../lib/favourites.js';
@@ -14,6 +14,7 @@ const buildSongsItems = (songs) => {
         const newElement = document.createElement('song-item')
         newElement.setAttribute('title', song.title)
         newElement.setAttribute('favourite', isFavorite(song))
+        newElement.setAttribute('song-id', song.id)
 
         newElement.addEventListener('play_click', () => {
             addToQueue(song, songs);
@@ -49,4 +50,13 @@ const displayFavourite = () => {
     buildSongsItems(favourite);
 }
 
-export { displayArtistSongs, displaySearchSongs, displayFavourite }
+const displayLyrics = (id) => {
+    loadSongsLyrics(id).then((lyrics) => {
+        const section = document.querySelector("#lyrics-section");
+        section.querySelector('h4').innerHTML = `${lyrics.title}`;
+        section.querySelector('h5').innerHTML = `${lyrics.artist.name}`;
+        section.querySelector('p').innerHTML = lyrics.lyrics;
+    })
+}
+
+export { displayArtistSongs, displaySearchSongs, displayFavourite, displayLyrics }
